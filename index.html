@@ -109,6 +109,9 @@
 		.marginbot5px{
 			margin-bottom: 5px;
 		}
+		#error{
+			text-align: center;
+		}
 	</style>
 </head>
 <body>
@@ -126,6 +129,7 @@
 			</div>
 		</form>
 		<div id="resultscontainer">
+
 		</div>
 	</div>
 </section>
@@ -134,6 +138,7 @@
 	let url = ""
 	let form = document.querySelector("#myForm")
 	let cardcontainer = document.querySelector("#resultscontainer")
+	let error = document.querySelector("#error")
 
 	function createComponent(titolo,autore,gif,data,link,embed){
 		let div = document.createElement("div")
@@ -168,7 +173,6 @@
 		let userinput = document.querySelector("input[name=search]").value
 
 		url = myurl + userinput
-		console.log(url)
 		let prom = fetch(url)
 
 		prom.then(
@@ -176,7 +180,13 @@
 			).then(
 				data =>	{
 					if(data.data.length === 0){
-						cardcontainer.innerHTML = "Nessun risultato"
+						let div = document.createElement("div")
+						div.innerHTML = `
+						<div>
+							<p id="error" class="font-milan fsize20px">Nessun risultato</p>
+						</div>
+						`
+						cardcontainer.append(div)
 					}else{
 						for(let i = 0; i<data.data.length;i++){
 						createComponent(data.data[i].title, data.data[i].username, data.data[i].images.downsized.url, data.data[i].import_datetime,data.data[i].id,data.data[i].embed_url);
