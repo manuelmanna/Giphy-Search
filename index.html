@@ -153,7 +153,7 @@
 							<p class="font-milan white fsize12px">on <span class="font-milan white fsize12px">${data}</span></p>
 						</div>
 						<div>
-							<a href="${oklink}" class="maright-30px" target="_blank"><img src="./images/link.svg"></a>
+							<img class="maright-30px link" alt="${oklink}" src="./images/link.svg">
 							<a href="${embed}" target="_blank"><img src="./images/embed.svg"></a>
 						</div>
 					</div>
@@ -198,6 +198,16 @@
 				error => error.info(error)
 			)
 
+	})
+
+	document.addEventListener("click",function(e){
+		if(e.target.classList.contains("link")){
+			let clink = e.target.alt
+			console.log(clink)
+			navigator.clipboard.writeText(clink).then(() => {
+            alert("Copied to clipboard");
+        });
+		}
 	})
 </script>
 </body>
